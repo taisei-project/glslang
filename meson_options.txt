@@ -1,0 +1,24 @@
+
+option(
+    'enable_amd_exts',
+    type : 'feature',
+    description : 'Enable support for AMD-specific extensions'
+)
+
+option(
+    'enable_nv_exts',
+    type : 'feature',
+    description : 'Enable support for Nvidia-specific extensions'
+)
+
+option(
+    'enable_hlsl',
+    type : 'feature',
+    description : 'Enable support for HLSL shaders'
+)
+
+option(
+    'enable_opt',
+    type : 'feature',
+    description : 'Enable support for optimization and HLSL legalization'
+)
