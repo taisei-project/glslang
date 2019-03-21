@@ -1,0 +1,12 @@
+
+option(
+    'enable_hlsl',
+    type : 'feature',
+    description : 'Enable support for HLSL shaders'
+)
+
+option(
+    'enable_opt',
+    type : 'feature',
+    description : 'Enable support for optimization and HLSL legalization'
+)
