@@ -69,6 +69,7 @@ namespace spv {
 #include <unordered_map>
 #include <unordered_set>
 #include <map>
+#include <cstdint>
 
 namespace spv {
 
