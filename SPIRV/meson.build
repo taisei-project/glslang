@@ -14,4 +14,5 @@ spirv_src = files(
 libspirv = static_library('SPIRV',
     spirv_src,
     build_by_default : false,
+    dependencies : spvtools_dep,
 )
