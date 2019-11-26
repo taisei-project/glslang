@@ -7,7 +7,12 @@ project('glslang', 'cpp',
 )
 
 cxx = meson.get_compiler('cpp')
-project_args = cxx.get_supported_arguments('-fpermissive')
+cxx_native = meson.get_compiler('cpp', native : true)
+
+add_project_arguments(cxx.get_supported_arguments('-fpermissive'), language : 'cpp', native : false)
+add_project_arguments(cxx_native.get_supported_arguments('-fpermissive'), language : 'cpp', native : true)
+
+project_args = []
 
 threads_dep = dependency('threads')
 spvtools_dep = dependency('SPIRV-Tools', required : get_option('enable_opt'), fallback : ['SPIRV-Tools', 'spirv_tools_opt_dep'])
