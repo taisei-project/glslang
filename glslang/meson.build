@@ -11,6 +11,7 @@ glslang_args = []
 
 if not get_option('enable_hlsl').disabled()
     glslang_libs += libhlsl
+    glslang_native_libs += libhlsl_native
     glslang_args += '-DENABLE_HLSL'
 endif
 

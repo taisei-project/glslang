@@ -7,20 +7,20 @@ project('glslang', 'cpp',
 )
 
 cxx = meson.get_compiler('cpp')
-add_project_arguments(cxx.get_supported_arguments('-fpermissive'), language : 'cpp')
+project_args = cxx.get_supported_arguments('-fpermissive')
 
 threads_dep = dependency('threads')
 spvtools_dep = dependency('SPIRV-Tools', required : get_option('enable_opt'), fallback : ['SPIRV-Tools', 'spirv_tools_opt_dep'])
 spvtools_native_dep = dependency('SPIRV-Tools', required : false, native : true, fallback : ['SPIRV-Tools', 'spirv_tools_opt_native_dep'])
 
 if not get_option('enable_hlsl').disabled()
-    add_project_arguments('-DENABLE_HLSL', language : 'cpp')
+    project_args += '-DENABLE_HLSL'
 endif
 
 if spvtools_dep.found()
-    add_project_arguments('-DENABLE_OPT=1', language : 'cpp')
+    project_args += '-DENABLE_OPT=1'
 else
-    add_project_arguments('-DENABLE_OPT=0', language : 'cpp')
+    project_args += '-DENABLE_OPT=0'
 
     if not get_option('enable_hlsl').disabled()
         message('SPIRV-Tools not linked - illegal SPIRV may be generated for HLSL')
@@ -28,10 +28,13 @@ else
 endif
 
 if host_machine.system() == 'windows'
-    add_project_arguments('-DGLSLANG_OSINCLUDE_WIN32', language : 'cpp')
+    project_args += '-DGLSLANG_OSINCLUDE_WIN32'
 else
-    add_project_arguments('-DGLSLANG_OSINCLUDE_UNIX', language : 'cpp')
+    project_args += '-DGLSLANG_OSINCLUDE_UNIX'
 endif
+
+add_project_arguments(project_args, language : 'cpp', native : false)
+add_project_arguments(project_args, language : 'cpp', native : true)
 
 subdir('SPIRV')
 subdir('OGLCompilersDLL')
