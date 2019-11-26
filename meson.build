@@ -11,6 +11,7 @@ add_project_arguments(cxx.get_supported_arguments('-fpermissive'), language : 'c
 
 threads_dep = dependency('threads')
 spvtools_dep = dependency('SPIRV-Tools', required : get_option('enable_opt'), fallback : ['SPIRV-Tools', 'spirv_tools_opt_dep'])
+spvtools_native_dep = dependency('SPIRV-Tools', native : true, fallback : ['SPIRV-Tools', 'spirv_tools_opt_native_dep'])
 
 if not get_option('enable_hlsl').disabled()
     add_project_arguments('-DENABLE_HLSL', language : 'cpp')
@@ -45,4 +46,12 @@ glslang_dep = declare_dependency(
     link_with : libglslang,
     compile_args : glslang_args,  # because the google/khronos mouth breathers don't understand how public APIs work
     include_directories : include_directories('.'),
+    version : meson.project_version(),
+)
+
+glslang_native_dep = declare_dependency(
+    link_with : libglslang_native,
+    compile_args : glslang_args,  # because the google/khronos mouth breathers don't understand how public APIs work
+    include_directories : include_directories('.'),
+    version : meson.project_version(),
 )

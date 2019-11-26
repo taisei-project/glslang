@@ -12,5 +12,12 @@ hlsl_src = files(
 libhlsl = static_library('hlsl',
     hlsl_src,
     cpp_pch : 'meson-pch/pch.h',
-    build_by_default : not meson.is_subproject(),
+    build_by_default : false,
+)
+
+libhlsl_native = static_library('hlsl-native',
+    hlsl_src,
+    cpp_pch : 'meson-pch/pch.h',
+    build_by_default : false,
+    native : true,
 )
