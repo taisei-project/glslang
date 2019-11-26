@@ -11,7 +11,7 @@ add_project_arguments(cxx.get_supported_arguments('-fpermissive'), language : 'c
 
 threads_dep = dependency('threads')
 spvtools_dep = dependency('SPIRV-Tools', required : get_option('enable_opt'), fallback : ['SPIRV-Tools', 'spirv_tools_opt_dep'])
-spvtools_native_dep = dependency('SPIRV-Tools', native : true, fallback : ['SPIRV-Tools', 'spirv_tools_opt_native_dep'])
+spvtools_native_dep = dependency('SPIRV-Tools', required : false, native : true, fallback : ['SPIRV-Tools', 'spirv_tools_opt_native_dep'])
 
 if not get_option('enable_hlsl').disabled()
     add_project_arguments('-DENABLE_HLSL', language : 'cpp')
