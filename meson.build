@@ -43,5 +43,6 @@ subdir('glslang')
 
 glslang_dep = declare_dependency(
     link_with : libglslang,
+    compile_args : glslang_args,  # because the google/khronos mouth breathers don't understand how public APIs work
     include_directories : include_directories('.'),
 )
