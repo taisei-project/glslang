@@ -9,8 +9,13 @@ project('glslang', 'cpp',
 cxx = meson.get_compiler('cpp')
 cxx_native = meson.get_compiler('cpp', native : true)
 
-add_project_arguments(cxx.get_supported_arguments('-fpermissive'), language : 'cpp', native : false)
-add_project_arguments(cxx_native.get_supported_arguments('-fpermissive'), language : 'cpp', native : true)
+compiler_args = [
+    '-fpermissive',
+    '-fno-strict-aliasing',
+]
+
+add_project_arguments(cxx.get_supported_arguments(compiler_args), language : 'cpp', native : false)
+add_project_arguments(cxx_native.get_supported_arguments(compiler_args), language : 'cpp', native : true)
 
 project_args = []
 
