@@ -2,7 +2,7 @@ project('glslang', 'cpp',
     version : '7.13.3496',
     meson_version : '>=0.47.0',
     default_options : [
-        'cpp_std=c++11',
+        'cpp_std=gnu++11',
     ]
 )
 
