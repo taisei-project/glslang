@@ -20,6 +20,7 @@ add_project_arguments(cxx_native.get_supported_arguments(compiler_args), languag
 project_args = []
 
 threads_dep = dependency('threads')
+threads_native_dep = dependency('threads', required : false, native : true)
 spvtools_dep = dependency('SPIRV-Tools', required : get_option('enable_opt'), fallback : ['SPIRV-Tools', 'spirv_tools_opt_dep'])
 spvtools_native_dep = dependency('SPIRV-Tools', required : false, native : true, fallback : ['SPIRV-Tools', 'spirv_tools_opt_native_dep'])
 
