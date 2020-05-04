@@ -34,4 +34,5 @@ libglslang_native = library('glslang-native',
     build_by_default : false,
     native : true,
     include_directories : glslang_include_dirs,
+    override_options : native_options,
 )

@@ -6,6 +6,14 @@ project('glslang', 'cpp',
     ]
 )
 
+native_options = [
+    'b_lto=false',
+    'b_ndebug=true',
+    'b_sanitize=none',
+    'debug=false',
+    'optimization=0',
+]
+
 cxx = meson.get_compiler('cpp')
 cxx_native = meson.get_compiler('cpp', native : true)
 
