@@ -1,6 +1,6 @@
 project('glslang', 'cpp',
     version : '11.2.0',
-    meson_version : '>=0.48.0',
+    meson_version : '>=0.50.0',
     default_options : [
         'cpp_std=gnu++11',
     ]
@@ -57,9 +57,43 @@ add_project_arguments(project_args, language : 'cpp', native : true)
 
 glslang_include_dirs = include_directories('.')
 
+python = import('python').find_installation('python3').path()
+
+subdir('glslang')
 subdir('SPIRV')
 subdir('OGLCompilersDLL')
-subdir('glslang')
+
+glslang_libs = [libspirv, liboglcompiler]
+glslang_native_libs = [libspirv_native, liboglcompiler_native]
+glslang_args = []
+
+if not get_option('enable_hlsl').disabled()
+    glslang_libs += libhlsl
+    glslang_native_libs += libhlsl_native
+    glslang_args += '-DENABLE_HLSL'
+endif
+
+libglslang = library('glslang',
+    glslang_src,
+    cpp_pch : 'glslang/MachineIndependent/pch.h',
+    link_with : glslang_libs,
+    cpp_args : glslang_args,
+    dependencies : [spvtools_dep, threads_dep],
+    build_by_default : not meson.is_subproject(),
+    include_directories : glslang_include_dirs,
+)
+
+libglslang_native = library('glslang-native',
+    glslang_src,
+    cpp_pch : 'glslang/MachineIndependent/pch.h',
+    link_with : glslang_native_libs,
+    cpp_args : glslang_args,
+    dependencies : [spvtools_native_dep, threads_native_dep],
+    build_by_default : false,
+    native : true,
+    include_directories : glslang_include_dirs,
+    override_options : native_options,
+)
 
 glslang_dep = declare_dependency(
     link_with : libglslang,

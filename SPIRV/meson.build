@@ -12,14 +12,14 @@ spirv_src = files(
 )
 
 libspirv = static_library('SPIRV',
-    spirv_src,
+    build_info, spirv_src,
     build_by_default : false,
     dependencies : spvtools_dep,
     include_directories : glslang_include_dirs,
 )
 
 libspirv_native = static_library('SPIRV-native',
-    spirv_src,
+    build_info, spirv_src,
     build_by_default : false,
     dependencies : spvtools_native_dep,
     native : true,

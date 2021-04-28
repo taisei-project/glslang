@@ -1,39 +1,21 @@
 
-glslang_src = []
+build_info = custom_target('build_info.h',
+    command : [
+        python,
+        files('../build_info.py'),
+        meson.current_source_dir(),
+        '-i', '@INTPUT@',
+        '-o', '@OUTPUT@',
+    ],
+    depend_files : ['../CHANGES.md'],
+    input : ['../build_info.h.tmpl'],
+    output : ['build_info.h']
+)
+
+glslang_src = [build_info]
 
 subdir('MachineIndependent')
 subdir('GenericCodeGen')
 subdir('OSDependent')
+subdir('HLSL')
 
-glslang_libs = [libspirv, liboglcompiler]
-glslang_native_libs = [libspirv_native, liboglcompiler_native]
-glslang_args = []
-
-if not get_option('enable_hlsl').disabled()
-    subdir('HLSL')
-    glslang_libs += libhlsl
-    glslang_native_libs += libhlsl_native
-    glslang_args += '-DENABLE_HLSL'
-endif
-
-libglslang = library('glslang',
-    glslang_src,
-    cpp_pch : 'MachineIndependent/pch.h',
-    link_with : glslang_libs,
-    cpp_args : glslang_args,
-    dependencies : [spvtools_dep, threads_dep],
-    build_by_default : not meson.is_subproject(),
-    include_directories : glslang_include_dirs,
-)
-
-libglslang_native = library('glslang-native',
-    glslang_src,
-    cpp_pch : 'MachineIndependent/pch.h',
-    link_with : glslang_native_libs,
-    cpp_args : glslang_args,
-    dependencies : [spvtools_native_dep, threads_native_dep],
-    build_by_default : false,
-    native : true,
-    include_directories : glslang_include_dirs,
-    override_options : native_options,
-)
