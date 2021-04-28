@@ -55,6 +55,10 @@ endif
 add_project_arguments(project_args, language : 'cpp', native : false)
 add_project_arguments(project_args, language : 'cpp', native : true)
 
+glslang_source_root = meson.current_source_dir()
+glslang_changes = files('CHANGES.md')
+glslang_buildinfo_gen = files('build_info.py')
+glslang_buildinfo_tmpl = files('build_info.h.tmpl')
 glslang_include_dirs = include_directories('.')
 
 python = import('python').find_installation('python3').path()

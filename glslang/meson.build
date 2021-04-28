@@ -2,13 +2,13 @@
 build_info = custom_target('build_info.h',
     command : [
         python,
-        files('../build_info.py'),
-        meson.current_source_dir(),
-        '-i', '@INTPUT@',
+        glslang_buildinfo_gen,
+        glslang_source_root,
+        '-i', '@INPUT@',
         '-o', '@OUTPUT@',
     ],
-    depend_files : ['../CHANGES.md'],
-    input : ['../build_info.h.tmpl'],
+    depend_files : [glslang_changes],
+    input : [glslang_buildinfo_tmpl],
     output : ['build_info.h']
 )
 
