@@ -1,14 +1,15 @@
 
 spirv_src = files(
+    'CInterface/spirv_c_interface.cpp',
+    'disassemble.cpp',
+    'doc.cpp',
     'GlslangToSpv.cpp',
     'InReadableOrder.cpp',
     'Logger.cpp',
-    # 'SPVRemapper.cpp',  <-- don't want this one
     'SpvBuilder.cpp',
     'SpvPostProcess.cpp',
+    # 'SPVRemapper.cpp',  <-- don't want this one
     'SpvTools.cpp',
-    'disassemble.cpp',
-    'doc.cpp',
 )
 
 libspirv = static_library('SPIRV',

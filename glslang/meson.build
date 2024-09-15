@@ -31,3 +31,4 @@ subdir('OSDependent')
 subdir('ResourceLimits')
 subdir('HLSL')
 
+glslang_src += files('CInterface/glslang_c_interface.cpp')
