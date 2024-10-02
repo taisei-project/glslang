@@ -12,6 +12,11 @@ native_options = [
     'b_sanitize=none',
     'debug=false',
     'optimization=0',
+    'cpp_std=gnu++17',
+]
+
+cross_options = [
+    'cpp_std=gnu++17',
 ]
 
 cxx = meson.get_compiler('cpp')
@@ -85,6 +90,7 @@ libglslang = library('glslang',
     dependencies : [spvtools_dep, threads_dep],
     build_by_default : not meson.is_subproject(),
     include_directories : glslang_include_dirs,
+    override_options : cross_options,
 )
 
 libglslang_native = library('glslang-native',

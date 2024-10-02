@@ -17,6 +17,7 @@ libspirv = static_library('SPIRV',
     build_by_default : false,
     dependencies : spvtools_dep,
     include_directories : glslang_include_dirs,
+    override_options : cross_options,
 )
 
 libspirv_native = static_library('SPIRV-native',

@@ -14,6 +14,7 @@ libhlsl = static_library('hlsl',
     cpp_pch : 'meson-pch/pch.h',
     build_by_default : false,
     include_directories : glslang_include_dirs,
+    override_options : cross_options,
 )
 
 libhlsl_native = static_library('hlsl-native',
